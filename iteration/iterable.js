@@ -19,3 +19,13 @@ const iterableTest = {
 for (let value of iterableTest) {
   console.log("iterable -> ", value);
 }
+
+
+const test = {
+  1: 1,
+  2: 2,
+} 
+
+for(let value of test){
+  console.log(value);
+}
