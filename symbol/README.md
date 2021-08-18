@@ -16,7 +16,33 @@ object 중 symbol 로 생성한 key를 사용하면 반복문에도 key가 loop 
 - 유일성 보장
   - 동일한 key 로 셍성해도 서로 다른 값으로 취급
   - key를 공유하려면 `Symbol.for()` 사용
+
+```
+const testSymbol = Symbol('test');
+const testSymbol2 = Symbol('test');
+console.log(testSymbol === testSymbol2); // false
+console.log(testSymbol == testSymbol2); // false
+
+const testGlobalSymbol = Symbol.for('test');
+const testGlobalSymbol2 = Symbol.for('test');
+console.log(testGlobalSymbol === testGlobalSymbol2); // true
+console.log(testGlobalSymbol == testGlobalSymbol2); // true
+```
+
 - object에서 private property 로 사용 가능
+
+```
+const testObj = {
+  name: "test",
+  [sym]: "a",
+};
+
+for (let key in testObj) {
+  console.log(`testObj key: ${key}, value: ${testObj[key]}`);
+  // testObj key: name, value: test
+}
+```
+
 - 새로운 instance 생성시 new 키워드 사용안함
 
 ---
@@ -70,4 +96,6 @@ Symbol 을 완전히 숨길 수 있는 방법은 없다.
 const symbolKey = Object.getOwnPropertySymbols(testObj);
 console.log(symbolKey); //[ Symbol(a) ]
 
+const allKeys = Reflect.ownKeys(testObj);
+console.log('Reflect.ownKeys -> ', allKeys); // [ 'name', Symbol(a) ]
 ```
