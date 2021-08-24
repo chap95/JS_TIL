@@ -2,11 +2,11 @@ console.log("start");
 
 setTimeout(function foo() {
   console.log("this is foo func!!");
-}, 3000);
+}, 10);
 
 let x = 1;
 
-while(x < 10){
+while(x < 100){
   console.log(`x === ${x}`);
   x++;
 }
