@@ -22,3 +22,5 @@ Javascript Today I Learned
 ### 4. 비동기 (async)
 
 - JS 는 싱글 스레드지만 어떻게 비동기 동작을 할까?
+
+### 5. this
