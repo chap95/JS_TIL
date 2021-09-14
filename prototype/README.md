@@ -106,3 +106,62 @@ Obejct 생성자의 프로토타입에는 valueOf 가 있으므로
 Object의 모든 속성이 상속이 되지는 않는다. 그러나 상속을 하고 싶은 속성이나 메소드들은 prototype 속성에 넣어버린다. prototype 속성은 하나의 객체이자 프로토타입 체이닝을 통해 상속하고 싶은 것들을 담아두는 버킷정도로 이해하면 된다.
 
 그래서 Object로 부터 상속받은 것들은 `Object.` 으로 시작하는 것이 아니라 `Object.prototype.`으로 시작하게 된다.
+
+### create object
+
+객체를 생성하는데는 여러가지 방법이 있습니다.
+
+- 객체 리터럴 `const x = {};`
+- Object 생성자 함수
+
+```js
+const person = new Object();
+```
+
+- function Person(); 위 예시에서 사용
+- Object.create()
+- 클래스를 통해 생성
+
+각 생성방식은 사용하는 상황이나 세부적인 로직은 차이가 있으나 위 방법으로 객체를 생성했을 때
+`OrdinaryObjectCrete(proto[, addtionalInternalSlotsList])`
+를 통해 객체들이 생성이 된다.
+
+> - proto
+>   proto 에는 객체 또는 null 이 올 수 있다.
+> - additonalInternalSlotsList
+>   추가적인 객체의 속성을 넘겨준다.
+
+> ##### internal slot
+>
+> 위에서 언급된 슬롯에 대한 개념이 없어서 정리를 한다.
+
+### 생성자
+
+생성자 함수로 만들어낸 인스턴스 객체에는 `constructor` 라는 속성이 존재한다.
+위에서 만들어둔 `person1` 인스턴스 객체의 `constructor` 을 콘솔에 출력하면은 `Person` 생성자 함수가 나온다. 그렇다면 `Person.constructor`을 실행시키면 어떤 것이 나올까?
+
+아래 예제를 한 번 실행해보자
+
+```js
+function Person(first, last, age, gender, interests) {
+  // 속성과 메소드 정의
+  this.first = first;
+  this.last = last;
+  //... 나머지를 정의
+}
+
+var person1 = new Person("Bob", "Smith", 32, "male", ["music", "skiing"]);
+
+console.log(Person.constructor); // [Function: Function]
+console.log(person1.constructor); // [Function: Person]
+console.log(person1.constructor.name); // Person
+```
+
+Person 생성자 함수의 constructor를 찍었을 때는 Function이 나왔다.
+
+> 참고
+>
+> - https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Object_prototypes
+> - https://ko.javascript.info/function-prototype
+> - https://tc39.es/ecma262/#sec-ordinaryobjectcreate
+> - https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript
