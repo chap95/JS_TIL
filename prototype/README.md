@@ -122,18 +122,29 @@ const person = new Object();
 - Object.create()
 - 클래스를 통해 생성
 
-각 생성방식은 사용하는 상황이나 세부적인 로직은 차이가 있으나 위 방법으로 객체를 생성했을 때
+각 생성방식은 사용하는 상황이나 세부적인 로직은 차이가 있으나 위 방법으로 객체를 생성했을 때 추상 연산 동작을 하는
 `OrdinaryObjectCrete(proto[, addtionalInternalSlotsList])`
 를 통해 객체들이 생성이 된다.
 
 > - proto
 >   proto 에는 객체 또는 null 이 올 수 있다.
 > - additonalInternalSlotsList
->   추가적인 객체의 속성을 넘겨준다.
+>   추가적인 객체의 속성이나 메소드를 넘겨준다.
 
-> ##### internal slot
+> ##### abstract operation
+>
+> 위에서 언급된 추상연사에 대한 정리를 간단히 한다.
+
+> ##### internal slot 그리고 internal method
 >
 > 위에서 언급된 슬롯에 대한 개념이 없어서 정리를 한다.
+> internal slot과 method는 JS 엔진에서 구현되지만 런타임에서는 추상화 되어 노출되지 않기 때문에 일반 개체의 속성처럼 접근할 수가 없다.
+>
+> ###### \[[ StringData ]] internal slot
+>
+> 예를 들어 `new String("whatever");` 라고 코드를 작성했을 때,
+> \[[ StringData ]] internal slot 은 `whatever` 을 가리킨다.
+> 하지만 internal slot은 위에서 설명했듯이 개발자가 code 상에서 접근하지 못한다.
 
 ### 생성자
 
@@ -165,3 +176,4 @@ Person 생성자 함수의 constructor를 찍었을 때는 Function이 나왔다
 > - https://ko.javascript.info/function-prototype
 > - https://tc39.es/ecma262/#sec-ordinaryobjectcreate
 > - https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript
+> - https://morioh.com/p/4569c4dd3364
