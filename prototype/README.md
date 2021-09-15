@@ -133,7 +133,7 @@ const person = new Object();
 
 > ##### abstract operation
 >
-> 위에서 언급된 추상연사에 대한 정리를 간단히 한다.
+> 위에서 언급된 추상연산에 대한 정리를 간단히 한다.
 
 > ##### internal slot 그리고 internal method
 >
@@ -169,6 +169,50 @@ console.log(person1.constructor.name); // Person
 ```
 
 Person 생성자 함수의 constructor를 찍었을 때는 Function이 나왔다.
+
+---
+
+### prototype 장점 (사용이유)
+
+프로토타입 체이닝이 없다고 가정했을 때, 위에서 만든 Person 생성자를 통해서 만든 인스턴스들은 각기 다른 메모리에 메소드들을 저장한다.
+하지만 프로토타입 테이닝을 통해 Person.prototype 에 단 하나의 메소드를 저장하고 각각의 인스턴스 객체들은 이를 참조하기만 하면된다.
+
+다음 예시를 보자
+
+```js
+function Person(first, last, age, gender, interests, onBye) {
+  // 속성과 메소드 정의
+  this.first = first;
+  this.last = last;
+  this.onBye = onBye;
+  //... 나머지를 정의
+}
+
+Person.prototype.sayName = function () {
+  console.log(`hello my name is ${this.first}`);
+};
+
+var person1 = new Person(
+  "Bob",
+  "Smith",
+  32,
+  "male",
+  ["music", "skiing"],
+  () => {
+    console.log("bye bye");
+  }
+);
+var person2 = new Person("Tom", "Eden", 30, "male", ["soccer", "game"], () => {
+  console.log("bye bye");
+});
+
+console.log("person1 : ", person1);
+console.log("person2 : ", person2);
+
+// onBye는 메소드로 찍히지만 sayName 은 메소드로 찍히지 않는다.
+```
+
+이렇게 설명하고 보니 prototype은 원형이라는 의미를 가지고 있는데 이러한 방식이 프로토타입 체이닝이라 불리는지 이해가간다.
 
 > 참고
 >
