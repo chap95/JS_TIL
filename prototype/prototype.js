@@ -11,6 +11,8 @@ function Person(first, last, age, gender, interests, onBye) {
 Person.prototype.sayName = function () {
   console.log(`Hi, my name is ${this.first}`);
 };
+
+Person.prototype.foo = "bar";
 const person1 = new Person(
   "Bob",
   "Smith",
