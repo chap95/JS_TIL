@@ -24,3 +24,9 @@ Javascript Today I Learned
 - JS 는 싱글 스레드지만 어떻게 비동기 동작을 할까?
 
 ### 5. this
+
+- JS 에서 this 는 어떤 것을 의미하는가?
+
+### 6. proxy
+
+-
