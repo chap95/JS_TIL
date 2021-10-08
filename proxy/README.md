@@ -72,3 +72,69 @@ console.log(proxy2.message1); // world
 위의 예시를 통해서 `get()` 메소드를 통하여 target 객체에 있는 속성들을 모두 재정의 된 것을 알 수 있다.
 
 핸들러 함수는 `traps` 라고도 한다. 왜냐하면 target 객체에 대한 호출을 가두어 버리기 때문이다. 여기서 가두는 의미는 모든 속성 접근자를 재정의 함을 의미한다.
+
+모든 속성을 재정의하지 않고 특정 속성만 재정의하는 방법이 있다.
+바로 `Reflect` 를 이용하는 것이다.
+
+아래 예시를 보자
+
+```js
+const target = {
+  message1: "hello",
+  message2: "everyone",
+};
+
+const handler3 = {
+  get: function (target, prop, receiver) {
+    if (prop === "message2") {
+      return "world";
+    }
+    return Reflect.get(...arguments);
+  },
+};
+
+const proxy3 = new Proxy(target, handler3);
+
+console.log(proxy3.message1); // hello
+console.log(proxy3.message2); // world
+```
+
+자바스크립트 proxy 핸들러 함수에는 다양한 메소드가 올 수 있는데 아래는 이 메소드를 정리해 놓은 목록이다.
+
+```get
+set
+has
+defineProperty
+deleteProperty
+construct
+apply
+getPrototypeOf
+setPrototypeOf
+isExtensible
+preventExtensions
+getOwnPropertyDescriptor
+ownKeys
+```
+
+---
+
+### proxy는 왜 사용할까?
+
+javascript 는 객체지향 언어다. 그리고 객체(object) 없이는 js로 아무것도 할 수 없다. 하지만 js의 객체는 언제 누구나 접근이 가능해서 보안에 취약하다.
+
+하나의 예시를 들어보겠다.
+
+우리나라는 그렇지 않지만 타 국가에서는 테러의 위협이 높은 편이다. 테러의 방법중 우편물에 폭발물을 넣어 테러를 하는 경우가 있는데 이런 상황에서는 평범한 우편물 또한 일종의 위협으로 다가온다.
+
+이런 위협으로부터 안전을 보장하려면 우편물을 검사할 수 밖에 없다. 모든 우편물을 검사해 스팸메일을 필터링하고 폭발물이 있는지 없는지 검사해야한다.
+
+이런 세상에서 우편물을 `object` 라 생각하면되고 검사를 수행하는 집사나 우체국 직원들이 `proxy` 라고 생각하면 된다.
+
+객체에 이상한 값을 넣어 프로그램에 보내게 되면 프로그램이 위협에 빠질 수 있기 때문에 `proxy`가 프로그램이 받기 전, `intercept` 하여 유효성 검사를 진행할 수도 있다.
+
+---
+
+> 참고
+> https://javascript.plainenglish.io/why-proxies-in-javascript-are-fantastic-db100ddc10a0  
+> https://blog.woolta.com/categories/3/posts/144  
+> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
