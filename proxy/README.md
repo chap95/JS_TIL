@@ -93,48 +93,27 @@ getOwnPropertyDescriptor
 ownKeys
 ```
 
-| 내부 메소드             | 핸들러메소드(트랩)  | 작동시점                                               |
-| ----------------------- | ------------------- | ------------------------------------------------------ |
-| `[[Get]] `              | `get `              | 속성을 읽을때                                          |
-| `[[Set]]`               | `set`               | 속성을 쓸때                                            |
-| `[[HasProperty]]`       | `has`               | `in` 연산자가 동작할 때                                |
-| `[[Delete]]`            | `deleteProperty`    | `delete` 연산자가 동작할 때                            |
-| `[[Call]]`              | `call`              | 함수 호출할 때                                         |
-| `[[Construct]]`         | `construct`         | `new` 연산자가 동작할 때                               |
-| `[[GetPropertyOf]]`     | `getPropertyOf`     | `Obejct.getPropertyOf`                                 |
-| `[[SetPropertyOf]]`     | `setPropertyOf`     | `Object.setPropertyOf`                                 |
-| `[[IsExtensible]]`      | `isExtensible`      | `Object.isExtensible`                                  |
-| `[[PreventExtensions]]` | `preventExtensions` | `Object.preventExtensions`                             |
-| `[[DefineOwnProperty]]` | `defineOwnProperty` | `Object.defineProperty`<br />`Object.defineProperties` |
-
----
-
-### Reflect
-
-```js
-const target = {
-  message1: "hello",
-  message2: "everyone",
-};
-
-const handler3 = {
-  get: function (target, prop, receiver) {
-    if (prop === "message2") {
-      return "world";
-    }
-    return Reflect.get(...arguments);
-  },
-};
-
-const proxy3 = new Proxy(target, handler3);
-
-console.log(proxy3.message1); // hello
-console.log(proxy3.message2); // world
-```
+| 내부 메소드             | 핸들러메소드(트랩)         | 작동시점                                                                                        |
+| ----------------------- | -------------------------- | ----------------------------------------------------------------------------------------------- |
+| `[[Get]] `              | `get `                     | 속성을 읽을때                                                                                   |
+| `[[Set]]`               | `set`                      | 속성을 쓸때                                                                                     |
+| `[[HasProperty]]`       | `has`                      | `in` 연산자가 동작할 때                                                                         |
+| `[[Delete]]`            | `deleteProperty`           | `delete` 연산자가 동작할 때                                                                     |
+| `[[Call]]`              | `call`                     | 함수 호출할 때                                                                                  |
+| `[[Construct]]`         | `construct`                | `new` 연산자가 동작할 때                                                                        |
+| `[[GetPropertyOf]]`     | `getPropertyOf`            | `Obejct.getPropertyOf`                                                                          |
+| `[[SetPropertyOf]]`     | `setPropertyOf`            | `Object.setPropertyOf`                                                                          |
+| `[[IsExtensible]]`      | `isExtensible`             | `Object.isExtensible`                                                                           |
+| `[[PreventExtensions]]` | `preventExtensions`        | `Object.preventExtensions`                                                                      |
+| `[[DefineOwnProperty]]` | `defineOwnProperty`        | `Object.defineProperty`<br />`Object.defineProperties`                                          |
+| `[[GetOwnProperty]]`    | `getOwnPropertyDescriptor` | `Object.getOwnPropertyDescriptor`<br /> `for..in` <br /> `Object.keys/values/entries`           |
+| `[[OwnPropertyKeys]]`   | `ownKeys`                  | `Object.getOwnPropertyNames, Object.getOwnPropertySymbols, for..in, Object/keys/values/entries` |
 
 ---
 
 ### proxy는 왜 사용할까?
+
+위 표에서 첫번째 열에 해당하는 함수들은 내부 로직들이다. 프로토타입을 다루는 부분에서 `[[Prototype]]` 에 대해 알아본 적이 있는데 대괄호 두 개를 사용하는 함수들은 개발자가 호출해서 사용할 수 없는 추상적인 개념들이다.
 
 ---
 
