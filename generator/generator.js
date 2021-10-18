@@ -29,3 +29,15 @@ let lastOfGenerator = generator2.next();
 console.log("lastOfGenerator => ", lastOfGenerator);
 let random = generator2.next();
 console.log('random => ', random);
+
+function* generateSequence3() {
+  yield 1;
+  yield 2;
+  return 3;
+}
+
+let generator3 = generateSequence3();
+
+for (let value of generator3) {
+  console.log('for..of => ', value); // 1, 2가 출력됨
+}
