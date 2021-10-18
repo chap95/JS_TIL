@@ -29,4 +29,8 @@ Javascript Today I Learned
 
 ### 6. proxy
 
--
+- proxy는 무엇이며 왜 사용하는가?
+
+### 7. generator
+
+- 제너레이터 함수의 효용성과 사용법

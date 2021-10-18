@@ -17,3 +17,10 @@ const proxy3 = new Proxy(target, handler3);
 console.log(target);
 console.log(proxy3.message1);
 console.log(proxy3.message2);
+
+const newTarget = Object.assign({},target);
+
+
+newTarget['message3'] = 'world';
+console.log('newTarget -> ', newTarget);
+console.log('target => ', target);
