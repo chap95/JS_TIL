@@ -101,7 +101,8 @@ console.log(proxy3.message2); // world
 
 자바스크립트 proxy 핸들러 함수에는 다양한 메소드가 올 수 있는데 아래는 이 메소드를 정리해 놓은 목록이다.
 
-```get
+```
+get
 set
 has
 defineProperty
