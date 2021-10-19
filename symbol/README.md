@@ -17,21 +17,21 @@ object 중 symbol 로 생성한 key를 사용하면 반복문에도 key가 loop 
   - 동일한 key 로 셍성해도 서로 다른 값으로 취급
   - key를 공유하려면 `Symbol.for()` 사용
 
-```
-const testSymbol = Symbol('test');
-const testSymbol2 = Symbol('test');
+```js
+const testSymbol = Symbol("test");
+const testSymbol2 = Symbol("test");
 console.log(testSymbol === testSymbol2); // false
 console.log(testSymbol == testSymbol2); // false
 
-const testGlobalSymbol = Symbol.for('test');
-const testGlobalSymbol2 = Symbol.for('test');
+const testGlobalSymbol = Symbol.for("test");
+const testGlobalSymbol2 = Symbol.for("test");
 console.log(testGlobalSymbol === testGlobalSymbol2); // true
 console.log(testGlobalSymbol == testGlobalSymbol2); // true
 ```
 
 - object에서 private property 로 사용 가능
 
-```
+```js
 const testObj = {
   name: "test",
   [sym]: "a",
@@ -76,12 +76,12 @@ testObj[symbol1] = 3;
 위와 같이 object에 할당이 가능하다.
 하지만 loop를 돌거나 Object 메소드로 접근하면 나오지 않는다.
 
-```
-console.log('Object.keys(testObj) : ', Object.keys(testObj)); // ['name']
-console.log('Object.values(testObj): ', Object.values(testObj)); // ['test']
-console.log('Object.entries(testObj) : ', Object.entries(testObj)); // [['name', 'test']]
+```js
+console.log("Object.keys(testObj) : ", Object.keys(testObj)); // ['name']
+console.log("Object.values(testObj): ", Object.values(testObj)); // ['test']
+console.log("Object.entries(testObj) : ", Object.entries(testObj)); // [['name', 'test']]
 
-for(let key in testObj){
+for (let key in testObj) {
   console.log(`testObj key: ${key}, value: ${testObj[key]}`); // name, test
 }
 ```
@@ -92,10 +92,10 @@ for(let key in testObj){
 
 Symbol 을 완전히 숨길 수 있는 방법은 없다.
 
-```
+```js
 const symbolKey = Object.getOwnPropertySymbols(testObj);
 console.log(symbolKey); //[ Symbol(a) ]
 
 const allKeys = Reflect.ownKeys(testObj);
-console.log('Reflect.ownKeys -> ', allKeys); // [ 'name', Symbol(a) ]
+console.log("Reflect.ownKeys -> ", allKeys); // [ 'name', Symbol(a) ]
 ```

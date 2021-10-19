@@ -49,7 +49,7 @@ console.log(generator); // [object Generator]
 제너레이터 함수 내부에서 `yield` 키워드를 만나기 전까지 실행이 되며 반환 값은 `yield <value>`에서 value 와 `done(제너레이터 함수 실행이 끝났는지)`을 객체 형태로 return 한다.
 
 ```js
-function* generateSequence() {
+function* generateSequence2() {
   console.log("start generator function");
   yield 1;
   console.log("after first yield");
@@ -59,7 +59,7 @@ function* generateSequence() {
 }
 
 // '제너레이터 함수'는 '제너레이터 객체'를 생성합니다.
-let generator = generateSequence();
+let generator = generateSequence2();
 let yieldOne = generator.next();
 console.log("yieldOne => ", yieldOne);
 let yieldTwo = generator.next();
@@ -92,3 +92,44 @@ yieldOne 을 출력하면은 yield 의 value 가 1 이고 함수는 끝이 아�
 `random` 변수에 `return` 이 된 상태의 제너레이터 next 를 호출해 보았다. 그 결과 `value` 는 `undefined` 가 반환이 되었다.
 
 > asterisk 는 `function* someFunc` 와 `function *someFunc` 형태 둘 다 가능하다. 하지만 asterisk 는 제너레이터 함수임을 선언하는 키워드 인 만큼 `function` 키워드에 붙여 사용하는게 선호된다.
+
+---
+
+### 이터러블한 제너레이터 객체
+
+제너레이터 함수 호출을 통해 return 된 제너레이터 객체는 이터러블 하기 때문에 `for..of` 를 사용할 수 있다.
+
+```js
+function* generateSequence3() {
+  yield 1;
+  yield 2;
+  return 3;
+}
+
+let generator = generateSequence3();
+
+for (let value of generator) {
+  console.log("for..of => ", value); // value 만 log 에 찍힘
+}
+```
+
+위 코드의 실행 결과를 예측해보자.
+
+```
+for..of =>  1
+for..of =>  2
+for..of =>  3
+```
+
+위와 같이 될 것이라 생각하겠지만 마지막 3은 log 에 찍히지 않는다.
+`next()` 를 통해서 호출된 것과 다르게 `for..of` 는 `done === true` 일 때 value 를 생략해 버린다.
+
+이에 따라 `for..of`를 사용할 때는 위에 처럼 제너레이터 함수 내부에 `return` 키워드를 사용하는 것보다는 모두 `yield` 로 제너레이터 함수로 구성해야한다.
+
+```js
+function* generateSequence4() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+```
