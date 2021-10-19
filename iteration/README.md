@@ -2,38 +2,20 @@
 
 ---
 
-여러가지 data type 은 iterable 로 평가 될 수 있다. 그러면 이 iterable 은 어떤 녀석이길래 꽤나 자주 등장하는 것일까?
+`iteration`, 처음 이 단어를 접했을 때 너무 생소하고 어려운 개념처럼 느껴졌다. 개발 공부를 하면서 처음보는 단어가 나왔을 때 용어에 대한 감을 잡기 위해 영어사전에 뜻을 검색해본다.
 
-iterable 의 의미는 반복가능한 객체를 의미한다.
+> 반복
 
-### Iteration Protocol
+개발을 처음시작할 때 부터 `for` 문은 아무런 생각없이 사용해왔기 때문에 이런 용어가 왜 존재하는지 그리고 반복하는 행위가 중요한지에 대한 의문이 들었다.
 
-특정 조건만 지키면 iterable 또는 iterator 로 평가되는 약속을 의미한다.
+그래서 내 나름대로 반복이 중요한 이유를 몇 가지 생각해 보았다.
 
-###### Iterable
+> 자바스크립트의 배열은 진짜 배열이 아니고 `유사배열` 이기 때문에??
 
-- Iterable 조건
+JS의 배열은 물리적을 연속된 공간에 데이터를 저장하고 있는 형태가 아니고 객체가 배열을 흉내내고 있다는 자료를 본적이 있다. 실제로 JS 배열은 객체이며 `length`,`map` 등 과 같은 메소드들은 객체의 메소드로 구현이 되있다고 알고 있다.
 
-```
-  Symbol.iterator() 메소드를 포함하고 있어야 함
-```
-
-###### Iterator
-
-- Iterator 조건
-
-```
-객체 내에 next 메소드 존재
-return 값은 IterableResult 객체를 반환
-IterableResult = {
-  value?: any;
-  done: boolean
-}
-이전 next 호출의 return 으로 done 이 true 이면 앞으로 next 호출에 대한 return 값 또한 done === true 여야함
-```
-
-위와 같은 조건만 만족하면 iteration 으로 평가한다는 규약이다.
+이 이유라면은 반복하는 행위가 중요할 수 도 있겠다는 생각을 해봤다. 하지만 이 이유가 명확하지 않기 때문에 우선적으로 `iteration` 에 대해서 알아보자.
 
 ---
 
-### well-formed Iterable
+### iteration protocols

@@ -133,3 +133,9 @@ function* generateSequence4() {
   yield 3;
 }
 ```
+
+---
+
+### iterable 과 generator
+
+`for..of` 를 사용해서 객체를 반복하려면 `iterable(반복가능)` 해야한다. 여기서 `iterable` 하다는 의미는 `iterable protocol` 이 구현되어있다는 말이다. 이 때 `iterable protocol` 을 구현할 때 `generator` 를 사용하게 된다.
