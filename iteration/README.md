@@ -19,3 +19,21 @@ JS의 배열은 물리적을 연속된 공간에 데이터를 저장하고 있�
 ---
 
 ### iteration protocols
+
+`iteration protocols` 는 두 가지로 나뉜다. 이 두 가지 규칙만 충족한다면 어떠한 객체에서든지 `iteration` 구현이 가능하다.
+
+> iterable protocol
+> iterator protocol
+
+---
+
+### iterable protocol
+
+`iterable protocol` 은 `for..of` loop 에서 객체들이 반복동작을 정의하거나 사용자가 반복동작을 정의하는 것을 허용한다는 규칙이다.
+
+`iterable` 하기 위해서는 `@@iterator` 메소드를 구현해야한다. 이 의미는 객체 또는 `prototype chain`의 객체 중 하나가 `Symbol.iterator` 를 통해 사용할 수 있는 `@@iterator` 키를 가진 속성을 가져야 한다는 뜻이다.
+
+위에 말만 봐서는 모르는 용어도 너무 많고 텍스트의 의미가 머릿 속에 정확히 박히지 않는다. 그래서 위 설명에 나온 용어들을 몇 개 정리해보았다.
+
+> @@iterator 와 Symbol.iterator
+> 객체에 대한 default iterator 를 반환하는 메소드이다. `for..of` 문에 의해 호출이 된다.
