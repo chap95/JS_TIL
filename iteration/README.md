@@ -6,15 +6,9 @@
 
 > 반복
 
-개발을 처음시작할 때 부터 `for` 문은 아무런 생각없이 사용해왔기 때문에 이런 용어가 왜 존재하는지 그리고 반복하는 행위가 중요한지에 대한 의문이 들었다.
+개발을 처음시작할 때 부터 `for` 문은 아무런 생각없이 사용해왔기 때문에 `반복` 이라는 행위를 가볍게 생각해 왔다. 아직은 어떤 이유에서 중요한지 파악이 되지 않지만 중요하다는 사실은 인지하고 있다.
 
-그래서 내 나름대로 반복이 중요한 이유를 몇 가지 생각해 보았다.
-
-> 자바스크립트의 배열은 진짜 배열이 아니고 `유사배열` 이기 때문에??
-
-JS의 배열은 물리적을 연속된 공간에 데이터를 저장하고 있는 형태가 아니고 객체가 배열을 흉내내고 있다는 자료를 본적이 있다. 실제로 JS 배열은 객체이며 `length`,`map` 등 과 같은 메소드들은 객체의 메소드로 구현이 되있다고 알고 있다.
-
-이 이유라면은 반복하는 행위가 중요할 수 도 있겠다는 생각을 해봤다. 하지만 이 이유가 명확하지 않기 때문에 우선적으로 `iteration` 에 대해서 알아보자.
+그렇다면 지금부터 `iteration protocol` 이 중요한 이유와 이 프로토콜이 어떤 의미를 가지고 있는지 알아보자
 
 ---
 
@@ -85,6 +79,62 @@ const sampleArray = [1, 2, 3];
 const iterator = sampleArray[Symbol.iterator]();
 // Symbol.iterator 는 iterator 객체를 반환한다.
 console.log("next" in iterator); // true
+
+let iteratorResult = iterator.next();
+console.log(iteratorResult); // {value: 1, done: false}
+```
+
+iterator 변수에는 실제로 iterator 가 있기 때문에 `next()` 메소드가 존재한다. 그리고 iterator 함수의 next 메소드 실행의 결과 값은 value 와 done 이 있는 `iteratorResult` 객체가 된다.
+
+---
+
+### iteration protocol 의 필요성
+
+`iterable` 은 데이터 공급자의 역할을 하는데 데이터 소스가 각자의 순회(반복) 방식을 갖는다면 JS 데이터 공급자는 다양한 데이터 소스의 순회 방식을 모두 지원해야한다.
+
+이는 비효율적이며 데이터 소스가 `iteration protocol` 을 지키기게끔 설정하면 데이터 소비자는 `iteration protocol` 만을 지원하도록 구현하면 되는 편리함이 생긴다.
+
+`iteration protocol`은 다양한 데이터 소스가 하나의 반복 방식을 갖도록 규정하여 데이터 소비자가 효율적으로 다양한 데이터 소스를 사용할 수 있도록 `interface(중간다리)` 역할을 한다고 보면 된다.
+
+> 데이터 소비자는 `for..of`,`spread 연산자`, `구조분해할당`, `Map/Set 생성저` 등 이 있다.
+
+> 데이터 공급자는 배열, 문자열, Map/Set, DOM 등 이 있다.
+
+---
+
+### well-formed iterable
+
+`well-formed iterable` 은
+
+```js
+a[Symbole.iterable]() === a;
+```
+
+일 경우에 `well-formed iteralbe` 이라고 한다.
+
+위 의미를 다시 생각해보자.
+`iterable` 하려면 `[Symbol.iterator]` 메소드가 존재히야하고
+`iteration` 하려면 다음과 같은 사항을 준수해야한다.
+
+> 1. 객체 내에 `next()` 메소드가 존재해야함
+> 2. `next()` 메소드가 `iteratorResult객체` 즉 `{value: any, done: boolean}` 형태의 객체를 반환해야함
+> 3. 이전 `next` 메소드의 호출 결과로 `done === true` 였다면, 이후 호출에 대한 `done` 값 또한 `true` 여야함
+
+그렇다면 `well-formed iterable` 의 형태는 다음과 같을 것이다.
+
+```js
+const sampleWellFormedIteralbe = {
+  next() {
+    // iterator protocol 중 1 번 조건
+    return {
+      // iterator protocol 중 2 번 조건
+      value: 1,
+      done: false,
+    };
+
+    // iterator protocol 3 번 조건은 생
+  },
+};
 ```
 
 > MDN : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
