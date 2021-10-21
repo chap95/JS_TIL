@@ -124,15 +124,20 @@ a[Symbole.iterable]() === a;
 
 ```js
 const sampleWellFormedIteralbe = {
+  i: 0,
   next() {
-    // iterator protocol 중 1 번 조건
-    return {
-      // iterator protocol 중 2 번 조건
-      value: 1,
-      done: false,
-    };
+    // iterator protocol 1번조건
+    while (this.i < 10) {
+      return { value: this.i++, done: false };
+      // iterator protocol 2번조건
+    }
+    return { value: undefined, done: true };
+    // iterator protocol 3번조건
+  },
 
-    // iterator protocol 3 번 조건은 생
+  // iterable protocol 조건
+  [Symbol.iterator]() {
+    return this;
   },
 };
 ```
