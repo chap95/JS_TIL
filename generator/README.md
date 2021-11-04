@@ -139,3 +139,19 @@ function* generateSequence4() {
 ### iterable 과 generator
 
 `for..of` 를 사용해서 객체를 반복하려면 `iterable(반복가능)` 해야한다. 여기서 `iterable` 하다는 의미는 `iterable protocol` 이 구현되어있다는 말이다. 이 때 `iterable protocol` 을 구현할 때 `generator` 를 사용하게 된다.
+
+iterable 과 관련된 자세한 내용은 iteration 파트에 정리되어있다.
+
+사실 위에서 예시로 들었던 `next()` 메소드와 `{done, value}` 객체는 `iterator protocol` 이다. 반환 되는 객체는 `iteratorResult` 객체이다.
+
+generator 로 iteralbe 을 구현할 수 있음을 알았으니 한 번 만들어보자
+
+`iterable` 이 되려면 `[Symbol.iterator]` 메소드를 가지고 있어야 하며 return 은 `iterator`가 되어야 한다.
+
+이 때, `[Symbol.iterator]` 에 일반함수와 generator 함수가 들어갈 수 있다.
+
+이 부분에서는 `iterable protocol`을 generator 함수로 구현해 보고 일반 함수로 구현했을때와의 차이점을 정리해 보겠다.
+
+```
+
+```
