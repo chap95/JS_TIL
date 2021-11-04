@@ -142,6 +142,14 @@ const sampleWellFormedIteralbe = {
 };
 ```
 
+next 메소드의 세부로직은 정하기 나름이지만 `well-formed` 형태로 만드려면 위의 규칙만 지켜주면 된다.
+
+---
+
+위에서 정리한 내용을 바탕으로 iterable 을 생성하는 함수를 만들 수 있다. well-formed 이터러블에서 예시로 보여준 코드는 외부에서 값을 전달받을 수 없다는 단점이 존재한다.
+
+이런 단점을 보완하기위해 특정값에 대한 이터러블을 반환하는 함수를 만들 수 있다.
+
 > MDN : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
 > ECMA-iternatinal : https://262.ecma-international.org/12.0/#sec-well-known-symbols
 > poiemaweb : https://poiemaweb.com/es6-iteration-for-of
