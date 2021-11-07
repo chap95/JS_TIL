@@ -1,3 +1,5 @@
+
+
 function* generateSequence() {
   console.log("this is generator function!!");
   yield 1;
@@ -40,3 +42,43 @@ let generator3 = generateSequence3();
 for (let value of generator3) {
   console.log("for..of => ", value); // 1, 2가 출력됨
 }
+
+const someObj = {};
+
+someObj.map = function*( ) {
+  
+}
+
+let rangeGenerator = {
+  from: 1,
+  to:5 ,
+}
+
+rangeGenerator[Symbol.iterator] = function* () {
+  for(let i = this.from; i < this.to; i++){
+    yield i;
+  }
+}
+console.log('[...rangeGenerator] => ',  [...rangeGenerator])
+console.log('range[Symbole.iterator] => ', rangeGenerator[Symbol.iterator]())
+let rangeGeneralFunc = {
+  from: 1,
+  to: 5,
+}
+
+rangeGeneralFunc[Symbol.iterator] = function () {
+  return {
+    current: this.from,
+    last: this.to,
+
+    next() {
+      if(this.current >= this.last) {
+        return { done: true }
+      } else {
+        return { done: false, value: this.current++}
+      }
+    }
+  }
+}
+
+console.log('[...rangeGeneralFunc => ]', [...rangeGeneralFunc])

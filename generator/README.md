@@ -152,6 +152,50 @@ generator 로 iteralbe 을 구현할 수 있음을 알았으니 한 번 만들�
 
 이 부분에서는 `iterable protocol`을 generator 함수로 구현해 보고 일반 함수로 구현했을때와의 차이점을 정리해 보겠다.
 
+```js
+let range = {
+  from: 0,
+  to: 5,
+};
+
+ragne[Symbol.iterator] = function* () {
+  for (let i = this.form; i < this.to; i++) {
+    yield i;
+  }
+};
 ```
 
+위 예시는 `generator` 함수를 이용하여 iteralbe 을 구현한 예시이다.
+generator 함수만 이해한다면 어려운 코드가 아니다. iteralbe 을 구현하는 가장 간단한 구조이며 `yield` 키워드가 `next()`를 반환하며 `next()`의 실행결과는 `iteratorResult` 객체를 반환하기 때문에 `iterable protocol` 을 만족한다.
+
+이번에는 일반적인 함수로 구현한 예시를 보자
+
+```js
+let rangeGeneralFunc = {
+  from: 1,
+  to: 5,
+};
+
+rangeGeneralFunc[Symbol.iterator] = function () {
+  return {
+    current: this.from,
+    last: this.to,
+
+    next() {
+      if (this.current >= this.last) {
+        return { done: true };
+      } else {
+        return { done: false, value: this.current++ };
+      }
+    },
+  };
+};
 ```
+
+`generator`로 구현한 예시보다는 복잡하며 직접 `next()` 메소드와 `iteratorResult 객체`를 구현했다. `generator` 패턴을 사용한 예시보다는 코드가 복잡하다.
+
+---
+
+지금까지 generator에 대해서 알아봤다. 개념적인 측면은 이해를 했지만 어떤 상황에서 generator를 사용하기 적합한지 느낌은 오지 않는다. generator에 대한 정리를 하면서 많은 예시 코드를 통해 느낀점은 있다.
+
+제너레이터를 활용하면 어려운 구현을 쉽게 할 수 있다. 특히 return 을 해도 내부 상태를 기억하고 있다는 것이 강력한 장점이라고 생각된다.
