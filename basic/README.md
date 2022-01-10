@@ -52,12 +52,12 @@ javascript 에서 `==` 연산은 타입을 비교하지 않는다. 이 의미를
 
 MDN 문서를 기반으로 정리한 형변환 규칙이다.
 `A == B` case
-|구분|number|string|boolean|object|피연산자(B)|
-|------|--------|---------|---------|---------|----------|-|
-|number|`A === B`|`A === Number(B)`|`A === Number(B)`| `A == Number(B)`||
-|string|`Number(A) === B`|`A === B`|`Number(A) === Boolean(B)`|`A == String(B)`||
-|boolean|`Number(A) === B`|`Number(A) === Number(B)`|`A === B`|`Number(A) == Number(B)`||
-|Object|`Number(A) == B`|`String(A) == B`| `Number(A) == Number(B)`| `A === B`||
+|구분|number|string|boolean|object|피연산자(B)|  
+|------|--------|---------|---------|---------|----------|-|  
+|number|`A === B`|`A === Number(B)`|`A === Number(B)`| `A == Number(B)`||  
+|string|`Number(A) === B`|`A === B`|`Number(A) === Boolean(B)`|`A == String(B)`||  
+|boolean|`Number(A) === B`|`Number(A) === Number(B)`|`A === B`|`Number(A) == Number(B)`||  
+|Object|`Number(A) == B`|`String(A) == B`| `Number(A) == Number(B)`| `A === B`||  
 |피연산자(A)||||||
 
 ###### 참고자료
