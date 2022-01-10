@@ -31,15 +31,12 @@ javascript 에서 `==` 연산은 타입을 비교하지 않는다. 이 의미를
 앞으로 나올 내용은 `primitive 타입` 과 `reference 타입`, 추가적으로 `js 유사배열`에 관해서 알고 있어야 이해를 할 수 있다.
 
 <br />
-<br />
 
 1. 예시에서 첫번째 문장을 보자. 빈 배열과 숫자를 비교하고 있다. `==` 연산자가 형변환을 자동으로 해주는 것을 감안한다면 두 피연산자의 타입을 알아볼 필요가 있다. `typeof` 연산자를 통해서 `숫자 0` 과 `[] 빈배열` 의 타입을 확인해 본 결과 `number` 와 `object` 가 나왔다. js 에서의 배열은 `유사배열` 이기 때문에 `object` 가 나온것이다.  
     <br />
    `number` 는 `primitive type`, `object`는 `reference type` 이다. 첫 번째 줄 연산은 원형타입과 참조타입 간의 비교다. 원형타입과 참조타입 간의 비교에는 참조타입이 피연산자의 원형타입으로 형변환이 되어야 한다는 rule 이 적용된다. 그래서 빈 배열은 Number() 로 캐스팅이 된다. 그 결과 `숫자 0` 이 되어서 같아진다. 결과는 `true`
-
    <br />
    <br />
-
 2. 두번째 문장을 보자. 숫자0 과 문자0 의 비교 연산이다. 해당 타입 둘다 원형타입이다. 이런 경우는 아리송하다. 어떻게 형변환이 될까? `string` 과 `number` 타입의 경우 `number` type 으로 형변환이 이루어진다. `0 == 'abc'` 와 `0 == ''` 의 실행결과가 다름을 보면 알 수 있다. 그래서 위 예제의 실행결과는 `true`
    <br />
    <br />
@@ -50,6 +47,18 @@ javascript 에서 `==` 연산은 타입을 비교하지 않는다. 이 의미를
    정답은 바로 `true` 이다. 왜 인지는 위에 설명해 놓았으니 읽어보면 될 것이다.
 
 ---
+
+### `==` type casting rule
+
+MDN 문서를 기반으로 정리한 형변환 규칙이다.
+`A == B` case
+|구분|number|string|boolean|object|피연산자(B)|
+|------|--------|---------|---------|---------|----------|-|
+|number|`A === B`|`A === Number(B)`|`A === Number(B)`| `A == Number(B)`
+|string|`Number(A) === B`|`A === B`|`Number(A) === Boolean(B)`|`A == String(B)`
+|boolean|`Number(A) === B`|`Number(A) === Number(B)`|`A === B`|`Number(A) == Number(B)`
+|Object|`Number(A) == B`|`String(A) == B`| `Number(A) == Number(B)`| `A === B`
+|피연산자(A)|
 
 ###### 참고자료
 
