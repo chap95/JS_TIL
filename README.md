@@ -34,3 +34,7 @@ Javascript Today I Learned
 ### 7. generator
 
 - 제너레이터 함수의 효용성과 사용법
+
+### 8. prototype
+
+- 자바스크립트 프로토타입에 대해서
