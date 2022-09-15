@@ -38,3 +38,7 @@ Javascript Today I Learned
 ### 8. prototype
 
 - 자바스크립트 프로토타입에 대해서
+
+### 9. module
+
+- exports 와 module.exports 의 차이점
